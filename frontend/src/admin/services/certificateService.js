@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getToken } from "./authService";
 
-const BASE_URL = "http://localhost:5000/api/certificates";
+const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = `${API_URL}/certificates`;
 
 const authHeaders = () => ({
   headers: {

@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "./authService";
 
 const API_URL =
-  "http://localhost:5000/api/admin-settings";
+  import.meta.env.VITE_API_URL;
 
 const authHeaders = () => ({
   headers: {

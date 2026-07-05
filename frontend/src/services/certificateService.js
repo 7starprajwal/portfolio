@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL =
-  "http://localhost:5000/api/certificates";
+const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = `${API_URL}/certificates`;
 
 // Get all published certificates
 export const getCertificates = async () => {

@@ -1,14 +1,14 @@
 import axios from "axios";
 import { getToken } from "./authService";
 
-const BASE_URL = "http://localhost:5000/api/experiences";
+const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = `${API_URL}/experiences`;
 
 const authHeaders = () => ({
   headers: {
     Authorization: `Bearer ${getToken()}`,
   },
 });
-
 // Get all experiences
 export const getExperience = async () => {
   const response = await axios.get(

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/resume";
+const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = `${API_URL}/certificates`;
 
 /**
  * Get the latest published resume

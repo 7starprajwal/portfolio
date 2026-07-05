@@ -17,64 +17,55 @@ function SkillsSection() {
   }, []);
 
   async function fetchSkills() {
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const response = await getSkills();
+    const response = await getSkills();
 
-      const grouped = response.skills.reduce(
-        (acc, skill) => {
-          let category = acc.find(
-            (item) => item.title === skill.category
-          );
+    console.log("API Response:", response);
+    console.log("Skills:", response.skills);
 
-          if (!category) {
-            category = {
-              id: acc.length + 1,
-              title: skill.category,
-              skills: [],
-            };
-
-            acc.push(category);
-          }
-
-          category.skills.push({
-            id: skill._id,
-            name: skill.name,
-            level: skill.level,
-            color: skill.color,
-            icon: skill.icon?.url,
-            featured: skill.featured,
-            category: skill.category,
-            description: skill.description,
-            experience: skill.experience,
-            technologies: skill.technologies,
-            projects: skill.projects,
-          });
-
-          return acc;
-        },
-        []
+    const grouped = response.skills.reduce((acc, skill) => {
+      let category = acc.find(
+        (item) => item.title === skill.category
       );
 
-      grouped.forEach((category) => {
-        category.skills.sort(
-          (a, b) =>
-            Number(b.featured) -
-            Number(a.featured)
-        );
+      if (!category) {
+        category = {
+          id: acc.length + 1,
+          title: skill.category,
+          skills: [],
+        };
+
+        acc.push(category);
+      }
+
+      category.skills.push({
+        id: skill._id,
+        name: skill.name,
+        level: skill.level,
+        color: skill.color,
+        icon: skill.icon?.url,
+        featured: skill.featured,
+        category: skill.category,
+        description: skill.description,
+        experience: skill.experience,
+        technologies: skill.technologies,
+        projects: skill.projects,
       });
 
-      setSkillsData(grouped);
-    } catch (error) {
-      console.error(
-        "Failed to load skills:",
-        error
-      );
-    } finally {
-      setLoading(false);
-    }
+      return acc;
+    }, []);
+
+    console.log("Grouped:", grouped);
+
+    setSkillsData(grouped);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
   }
+}
 
   const totalSkills = skillsData.reduce(
     (total, category) =>
