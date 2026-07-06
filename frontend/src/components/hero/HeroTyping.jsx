@@ -12,20 +12,25 @@ function HeroTyping() {
     fetchSettings();
   }, []);
 
-  const fetchSettings = async () => {
-    try {
-      const response = await getAdminSettings();
+const fetchSettings = async () => {
+  try {
+    const response = await getAdminSettings();
 
-      setHeroTitle(
-        response.settings.portfolio.heroTitle
-      );
-    } catch (error) {
-      console.error(
-        "Failed to load hero title:",
-        error
-      );
-    }
-  };
+    console.log("SUCCESS");
+    console.log(response);
+
+    setProfile(response.settings.profile);
+    setPortfolio(response.settings.portfolio);
+
+    console.log("Profile:", response.settings.profile);
+    console.log("Portfolio:", response.settings.portfolio);
+  } catch (error) {
+    console.log("ERROR");
+    console.log(error);
+    console.log(error.response);
+    console.log(error.message);
+  }
+};
 
   return (
     <TypeAnimation

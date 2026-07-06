@@ -13,22 +13,22 @@ function HeroImage() {
     fetchSettings();
   }, []);
 
-  const fetchSettings = async () => {
-    try {
-      const response = await getAdminSettings();
+const fetchSettings = async () => {
+  try {
+    const response = await getAdminSettings();
 
-      setProfile(response.settings.profile);
-      setAvailability(
-        response.settings.availability
-      );
-    } catch (error) {
-      console.error(
-        "Failed to load profile image:",
-        error
-      );
-    }
-  };
+    console.log("IMAGE SUCCESS");
+    console.log(response);
 
+    setProfile(response.settings.profile);
+    setAvailability(response.settings.availability);
+  } catch (error) {
+    console.log("IMAGE ERROR");
+    console.log(error);
+    console.log(error.response);
+    console.log(error.message);
+  }
+};
   return (
     <motion.div
       variants={fadeRight}
