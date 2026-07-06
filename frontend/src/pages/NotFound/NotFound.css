@@ -1,0 +1,91 @@
+.notfound {
+  min-height: 100vh;
+  background: #050816;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.notfound-card {
+  text-align: center;
+  max-width: 700px;
+}
+
+.notfound-card h1 {
+  font-size: 180px;
+  color: #00d9ff;
+  margin: 0;
+  line-height: 1;
+  text-shadow: 0 0 30px #00d9ff;
+}
+
+.notfound-card h2 {
+  color: white;
+  font-size: 40px;
+  margin-top: 15px;
+}
+
+.notfound-card p {
+  color: #a0aec0;
+  margin-top: 20px;
+  line-height: 1.8;
+  font-size: 18px;
+}
+
+.notfound-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.home-btn,
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.home-btn {
+  background: #00d9ff;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
+}
+
+.home-btn:hover {
+  background: #00bfe0;
+}
+
+.back-btn {
+  background: transparent;
+  border: 2px solid #00d9ff;
+  color: #00d9ff;
+}
+
+.back-btn:hover {
+  background: #00d9ff;
+  color: #050816;
+}
+
+@media (max-width: 768px) {
+  .notfound-card h1 {
+    font-size: 120px;
+  }
+
+  .notfound-card h2 {
+    font-size: 30px;
+  }
+
+  .notfound-card p {
+    font-size: 16px;
+  }
+}
