@@ -10,7 +10,7 @@ import Experience from "../pages/Experience";
 import Education from "../pages/Education";
 import Resume from "../pages/Resume";
 import Contact from "../pages/Contact";
-import NotFound from "../pages/NotFound";
+import NotFound from "../pages/NotFound/NotFound";
 
 import AllProjectsPage from "../pages/Projects/AllProjectsPage";
 import ProjectDetailsPage from "../pages/Projects/ProjectDetailsPage";

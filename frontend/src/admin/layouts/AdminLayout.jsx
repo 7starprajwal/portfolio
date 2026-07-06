@@ -5,17 +5,17 @@ import AdminNavbar from "./AdminNavbar";
 
 function AdminLayout() {
   return (
-    <div className="flex min-h-screen bg-slate-950">
-      {/* Sidebar */}
+    <div className="min-h-screen bg-slate-950">
+      {/* Fixed Sidebar */}
       <AdminSidebar />
 
-      {/* Right Section */}
-      <div className="flex flex-1 flex-col">
-        {/* Navbar */}
+      {/* Main Content Area */}
+      <div className="flex min-h-screen flex-col lg:ml-64">
+        {/* Top Navbar */}
         <AdminNavbar />
 
-        {/* Main Content */}
-        <main className="flex-1 overflow-y-auto bg-slate-950 p-6">
+        {/* Page Content */}
+        <main className="flex-1 overflow-y-auto bg-slate-950 p-4 pt-20 lg:p-6 lg:pt-6">
           <Outlet />
         </main>
       </div>
