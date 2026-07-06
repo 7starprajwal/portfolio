@@ -1,37 +1,18 @@
-const API_URL = import.meta.env.VITE_API_URL;
-const BASE_URL = `${API_URL}/certificates`;
-const API_BASE_URL = BASE_URL;
+import axios from "axios";
+
+const API_URL = `${import.meta.env.VITE_API_URL}/auth`;
 
 /* ===========================
    Login
 =========================== */
 
-export const loginAdmin = async (loginData) => {
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/auth/login`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
-      }
-    );
+export const loginAdmin = async (credentials) => {
+  const response = await axios.post(
+    `${API_URL}/login`,
+    credentials
+  );
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.message || "Login failed."
-      );
-    }
-
-    return data;
-  } catch (error) {
-    console.error("LOGIN ERROR:", error);
-    throw error;
-  }
+  return response.data;
 };
 
 /* ===========================
@@ -39,34 +20,23 @@ export const loginAdmin = async (loginData) => {
 =========================== */
 
 export const changePassword = async (
-  passwordData
+  passwords
 ) => {
   const token = localStorage.getItem(
     "adminToken"
   );
 
-  const response = await fetch(
-    `${API_BASE_URL}/auth/change-password`,
+  const response = await axios.put(
+    `${API_URL}/change-password`,
+    passwords,
     {
-      method: "PUT",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(passwordData),
     }
   );
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      data.message ||
-        "Failed to change password."
-    );
-  }
-
-  return data;
+  return response.data;
 };
 
 /* ===========================
@@ -107,9 +77,7 @@ export const getAdmin = () => {
     "admin"
   );
 
-  return admin
-    ? JSON.parse(admin)
-    : null;
+  return admin ? JSON.parse(admin) : null;
 };
 
 export const isAuthenticated = () => {
@@ -118,8 +86,6 @@ export const isAuthenticated = () => {
   );
 };
 
-export const getToken =
-  getAdminToken;
+export const getToken = getAdminToken;
 
-export const logout =
-  logoutAdmin;
+export const logout = logoutAdmin;
