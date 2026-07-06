@@ -1,8 +1,7 @@
 import axios from "axios";
 import { getToken } from "./authService";
 
-const API_URL =
-  import.meta.env.VITE_API_URL;
+const API_URL = `${import.meta.env.VITE_API_URL}/admin-settings`;
 
 const authHeaders = () => ({
   headers: {
@@ -43,37 +42,37 @@ export const updateAdminSettings = async (
    Upload Profile Image
 =========================== */
 
-export const uploadProfileImage =
-  async (file) => {
-    const formData = new FormData();
+export const uploadProfileImage = async (
+  file
+) => {
+  const formData = new FormData();
 
-    formData.append("image", file);
+  formData.append("image", file);
 
-    const response = await axios.post(
-      `${API_URL}/profile-image`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-          "Content-Type":
-            "multipart/form-data",
-        },
-      }
-    );
+  const response = await axios.post(
+    `${API_URL}/profile-image`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        "Content-Type":
+          "multipart/form-data",
+      },
+    }
+  );
 
-    return response.data;
-  };
+  return response.data;
+};
 
 /* ===========================
    Delete Profile Image
 =========================== */
 
-export const deleteProfileImage =
-  async () => {
-    const response = await axios.delete(
-      `${API_URL}/profile-image`,
-      authHeaders()
-    );
+export const deleteProfileImage = async () => {
+  const response = await axios.delete(
+    `${API_URL}/profile-image`,
+    authHeaders()
+  );
 
-    return response.data;
-  };
+  return response.data;
+};
