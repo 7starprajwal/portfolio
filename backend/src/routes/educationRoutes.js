@@ -1,64 +1,36 @@
-import express from "express";
+import axios from "axios";
 
-import {
-  createEducation,
-  getAllEducations,
-  getEducationByIdController,
-  updateEducation,
-  deleteEducation,
-  getFeaturedEducations,
-} from "../controllers/educationController.js";
+const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = `${API_URL}/education`;
 
-import protect from "../middleware/authMiddleware.js";
-import upload from "../middleware/uploadMiddleware.js";
+// Get all education
+export const getEducations = async (params = {}) => {
+  const response = await axios.get(BASE_URL, {
+    params,
+  });
 
-import {
-  createEducationValidation,
-} from "../validations/educationValidation.js";
+  return response.data;
+};
 
-const router = express.Router();
+// Get featured education
+export const getFeaturedEducations = async () => {
+  const response = await axios.get(
+    `${BASE_URL}/featured`
+  );
 
-/* ===========================
-   Public Routes
-=========================== */
+  return response.data;
+};
 
-router.get("/", getAllEducations);
+// Get one education (Admin only)
+export const getEducationById = async (id, token) => {
+  const response = await axios.get(
+    `${BASE_URL}/admin/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-router.get(
-  "/featured",
-  getFeaturedEducations
-);
-
-/* ===========================
-   Protected Admin Routes
-=========================== */
-
-router.get(
-  "/admin/:id",
-  protect,
-  getEducationByIdController
-);
-
-router.post(
-  "/",
-  protect,
-  upload.single("logo"),
-  createEducationValidation,
-  createEducation
-);
-
-router.patch(
-  "/:id",
-  protect,
-  upload.single("logo"),
-  createEducationValidation,
-  updateEducation
-);
-
-router.delete(
-  "/:id",
-  protect,
-  deleteEducation
-);
-
-export default router;
+  return response.data;
+};
