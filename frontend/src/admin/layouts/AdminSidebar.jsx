@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import {
@@ -12,7 +11,6 @@ import {
   FaEnvelope,
   FaCog,
   FaSignOutAlt,
-  FaBars,
   FaTimes,
 } from "react-icons/fa";
 
@@ -66,9 +64,8 @@ const menuItems = [
   },
 ];
 
-function AdminSidebar() {
+function AdminSidebar({ open, setOpen }) {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
     logoutAdmin();
@@ -77,18 +74,10 @@ function AdminSidebar() {
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setOpen(true)}
-        className="fixed left-4 top-4 z-50 rounded-lg bg-slate-900 p-3 text-white shadow-lg lg:hidden"
-      >
-        <FaBars size={18} />
-      </button>
-
-      {/* Overlay */}
+      {/* Mobile Overlay */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/60 lg:hidden"
           onClick={() => setOpen(false)}
         />
       )}
@@ -109,15 +98,16 @@ function AdminSidebar() {
           shadow-xl
           transition-transform
           duration-300
-          lg:translate-x-0
+          ease-in-out
           ${
             open
               ? "translate-x-0"
-              : "-translate-x-full lg:translate-x-0"
+              : "-translate-x-full"
           }
+          lg:translate-x-0
         `}
       >
-        {/* Logo */}
+        {/* Header */}
         <div className="border-b border-slate-700 p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -130,11 +120,12 @@ function AdminSidebar() {
               </p>
             </div>
 
+            {/* Close Button */}
             <button
               onClick={() => setOpen(false)}
-              className="text-white lg:hidden"
+              className="rounded-md p-2 hover:bg-slate-800 lg:hidden"
             >
-              <FaTimes size={22} />
+              <FaTimes size={20} />
             </button>
           </div>
         </div>
@@ -155,7 +146,10 @@ function AdminSidebar() {
                     }`
                   }
                 >
-                  <span className="text-lg">{item.icon}</span>
+                  <span className="text-lg">
+                    {item.icon}
+                  </span>
+
                   <span>{item.name}</span>
                 </NavLink>
               </li>
@@ -167,7 +161,7 @@ function AdminSidebar() {
         <div className="border-t border-slate-700 p-4">
           <button
             onClick={handleLogout}
-            className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-slate-300 transition-all duration-200 hover:bg-red-500 hover:text-white"
+            className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-slate-300 transition hover:bg-red-500 hover:text-white"
           >
             <FaSignOutAlt />
             Logout
