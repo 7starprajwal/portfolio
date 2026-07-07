@@ -299,8 +299,8 @@ async function handleDelete() {
       </div>
             {/* Projects Table */}
 
-      <div className="overflow-hidden rounded-xl bg-slate-900 shadow-lg">
-        <table className="min-w-full">
+     <div className="overflow-x-auto rounded-xl bg-slate-900 shadow-lg">
+       <table className="min-w-[900px] w-full">
           <thead className="border-b border-slate-700 bg-slate-800">
             <tr>
               <th className="px-6 py-4 text-left text-slate-300">
@@ -318,10 +318,9 @@ async function handleDelete() {
               <th className="px-6 py-4 text-center text-slate-300">
                 Status
               </th>
-
-              <th className="px-6 py-4 text-center text-slate-300">
-                Actions
-              </th>
+<th className="sticky right-0 bg-slate-800 px-6 py-4 text-center text-slate-300">
+  Actions
+</th>
             </tr>
           </thead>
 
@@ -341,7 +340,7 @@ async function handleDelete() {
                   key={project._id}
                   className="border-b border-slate-800 transition hover:bg-slate-800/50"
                 >
-                  <td className="px-6 py-5">
+                 <td className="sticky right-0 bg-slate-900 px-6 py-5">
                     <div className="flex items-center gap-4">
                       <img
                         src={
