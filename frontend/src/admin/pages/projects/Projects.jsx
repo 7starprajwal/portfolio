@@ -64,7 +64,10 @@ const [deleteLoading, setDeleteLoading] =
       params.published = published;
     }
 
-    const response = await getProjects(params);
+const response = await getProjects({
+  ...params,
+  limit: 100,
+});
 
    
 
