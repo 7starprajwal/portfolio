@@ -336,26 +336,39 @@ export const deleteProject = async (
 |--------------------------------------------------------------------------
 */
 
-export const getFeaturedProjects =
-  async (req, res) => {
-    try {
-      const result =
-        await getProjects({
-          featured: true,
-          published: true,
-          page: 1,
-          limit: 100,
-        });
+export const getFeaturedProjects = async (
+  req,
+  res
+) => {
+  try {
+    const result = await getProjects({
+      featured: true,
+      published: true,
+      page: 1,
+      limit: 100,
+    });
 
-      return res.status(200).json({
-        success: true,
-        projects:
-          result.projects,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        success: false,
-        message: error.message,
-      });
-    }
-  };
+    console.log(
+      "Featured Projects Count:",
+      result.projects.length
+    );
+
+    console.table(
+      result.projects.map((project) => ({
+        title: project.title,
+        featured: project.featured,
+        published: project.isPublished,
+      }))
+    );
+
+    return res.status(200).json({
+      success: true,
+      projects: result.projects,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
