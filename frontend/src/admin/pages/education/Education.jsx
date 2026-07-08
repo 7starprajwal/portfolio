@@ -271,33 +271,33 @@ function Education() {
 
             {/* Education Table */}
 
-      <div className="overflow-hidden rounded-xl bg-slate-900 shadow-lg">
-        <table className="min-w-full">
+   <div className="overflow-x-auto rounded-xl bg-slate-900 shadow-lg">
+        <table className="w-full min-w-[1150px]">
           <thead className="border-b border-slate-700 bg-slate-800">
             <tr>
-              <th className="px-6 py-4 text-left text-slate-300">
+             <th className="sticky left-0 bg-slate-800 px-6 py-4 text-left text-slate-300">
                 Education
               </th>
 
-              <th className="px-6 py-4 text-left text-slate-300">
+             <th className="sticky left-0 bg-slate-800 px-6 py-4 text-left text-slate-300">
                 Institution
               </th>
 
-              <th className="px-6 py-4 text-center text-slate-300">
+             <th className="sticky left-0 bg-slate-800 px-6 py-4 text-left text-slate-300">
                 CGPA
               </th>
 
-              <th className="px-6 py-4 text-center text-slate-300">
+            <th className="sticky left-0 bg-slate-800 px-6 py-4 text-left text-slate-300">
                 Featured
               </th>
 
-              <th className="px-6 py-4 text-center text-slate-300">
+             <th className="sticky left-0 bg-slate-800 px-6 py-4 text-left text-slate-300">
                 Status
               </th>
 
-              <th className="px-6 py-4 text-center text-slate-300">
-                Actions
-              </th>
+             <th className="sticky right-0 bg-slate-800 px-6 py-4 text-center text-slate-300">
+  Actions
+</th>
             </tr>
           </thead>
 
@@ -317,7 +317,7 @@ function Education() {
                   key={education._id}
                   className="border-b border-slate-800 transition hover:bg-slate-800/50"
                 >
-                  <td className="px-6 py-5">
+         <td className="sticky left-0 bg-slate-900 px-6 py-5">
                     <div className="flex items-center gap-4">
                       <img
                         src={
