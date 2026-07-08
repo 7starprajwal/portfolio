@@ -336,10 +336,7 @@ export const deleteProject = async (
 |--------------------------------------------------------------------------
 */
 
-export const getFeaturedProjects = async (
-  req,
-  res
-) => {
+export const getFeaturedProjects = async (req, res) => {
   try {
     const result = await getProjects({
       featured: true,
@@ -348,18 +345,17 @@ export const getFeaturedProjects = async (
       limit: 100,
     });
 
-    console.log(
-      "Featured Projects Count:",
-      result.projects.length
-    );
+    console.log("Total Featured:", result.projects.length);
 
-    console.table(
-      result.projects.map((project) => ({
-        title: project.title,
-        featured: project.featured,
-        published: project.isPublished,
-      }))
-    );
+    result.projects.forEach((project) => {
+      console.log(
+        project.title,
+        "| Featured:",
+        project.featured,
+        "| Published:",
+        project.isPublished
+      );
+    });
 
     return res.status(200).json({
       success: true,
