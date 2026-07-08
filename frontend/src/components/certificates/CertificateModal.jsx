@@ -62,7 +62,7 @@ function CertificateModal({
         year: "numeric",
       })
     : "N/A";
-    console.log(certificate);
+    
     return (
   <AnimatePresence>
     <motion.div
@@ -182,26 +182,7 @@ function CertificateModal({
 
                     {/* PDF Preview */}
 
-          <div>
-            <h3 className="mb-4 flex items-center gap-2 text-2xl font-semibold text-white">
-              <FaFilePdf className="text-red-500" />
-              Certificate PDF
-            </h3>
-
-            {pdfUrl ? (
-              <div className="overflow-hidden rounded-2xl border border-slate-800">
-                <iframe
-                  src={`${pdfUrl}#toolbar=0`}
-                  title={certificate.title}
-                  className="h-[650px] w-full bg-slate-900"
-                />
-              </div>
-            ) : (
-              <div className="flex h-48 items-center justify-center rounded-2xl border border-dashed border-slate-700 bg-slate-900 text-slate-400">
-                PDF not available for this certificate.
-              </div>
-            )}
-          </div>
+           
 
           {/* Actions */}
 
