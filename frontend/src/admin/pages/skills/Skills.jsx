@@ -273,151 +273,256 @@ function Skills() {
 
             {/* Skills Table */}
 
-      <div className="overflow-hidden rounded-xl bg-slate-900 shadow-lg">
-        <table className="min-w-full">
-          <thead className="border-b border-slate-700 bg-slate-800">
-            <tr>
-              <th className="px-6 py-4 text-left text-slate-300">
-                Skill
-              </th>
+     {/* Desktop Table */}
+<div className="hidden overflow-hidden rounded-xl bg-slate-900 shadow-lg lg:block">
+  <table className="min-w-full">
+    <thead className="border-b border-slate-700 bg-slate-800">
+      <tr>
+        <th className="px-6 py-4 text-left text-slate-300">
+          Skill
+        </th>
 
-              <th className="px-6 py-4 text-left text-slate-300">
-                Category
-              </th>
+        <th className="px-6 py-4 text-left text-slate-300">
+          Category
+        </th>
 
-              <th className="px-6 py-4 text-center text-slate-300">
-                Level
-              </th>
+        <th className="px-6 py-4 text-center text-slate-300">
+          Level
+        </th>
 
-              <th className="px-6 py-4 text-center text-slate-300">
-                Featured
-              </th>
+        <th className="px-6 py-4 text-center text-slate-300">
+          Featured
+        </th>
 
-              <th className="px-6 py-4 text-center text-slate-300">
-                Status
-              </th>
+        <th className="px-6 py-4 text-center text-slate-300">
+          Status
+        </th>
 
-              <th className="px-6 py-4 text-center text-slate-300">
-                Actions
-              </th>
-            </tr>
-          </thead>
+        <th className="px-6 py-4 text-center text-slate-300">
+          Actions
+        </th>
+      </tr>
+    </thead>
 
-          <tbody>
-            {skills.length === 0 ? (
-              <tr>
-                <td
-                  colSpan={6}
-                  className="py-12 text-center text-slate-400"
+    <tbody>
+      {skills.length === 0 ? (
+        <tr>
+          <td
+            colSpan={6}
+            className="py-12 text-center text-slate-400"
+          >
+            No Skills Found
+          </td>
+        </tr>
+      ) : (
+        skills.map((skill) => (
+          <tr
+            key={skill._id}
+            className="border-b border-slate-800 transition hover:bg-slate-800/50"
+          >
+            <td className="px-6 py-5">
+              <div className="flex items-center gap-4">
+                <img
+                  src={
+                    skill.icon?.url ||
+                    "https://placehold.co/80x80?text=Skill"
+                  }
+                  alt={skill.name}
+                  className="h-14 w-14 rounded-lg object-cover"
+                />
+
+                <div>
+                  <h3 className="font-semibold text-white">
+                    {skill.name}
+                  </h3>
+
+                  <p className="text-sm text-slate-400">
+                    {skill.color}
+                  </p>
+                </div>
+              </div>
+            </td>
+
+            <td className="px-6 py-5 text-slate-300">
+              {skill.category}
+            </td>
+
+            <td className="px-6 py-5">
+              <div className="mx-auto w-32">
+                <div className="h-3 overflow-hidden rounded-full bg-slate-700">
+                  <div
+                    className="h-full rounded-full bg-cyan-500"
+                    style={{
+                      width: `${skill.level}%`,
+                    }}
+                  />
+                </div>
+
+                <p className="mt-2 text-center text-sm text-white">
+                  {skill.level}%
+                </p>
+              </div>
+            </td>
+
+            <td className="px-6 py-5 text-center">
+              <span
+                className={`rounded-full px-3 py-1 text-xs font-semibold text-white ${
+                  skill.featured
+                    ? "bg-green-600"
+                    : "bg-slate-700"
+                }`}
+              >
+                {skill.featured
+                  ? "Featured"
+                  : "Normal"}
+              </span>
+            </td>
+
+            <td className="px-6 py-5 text-center">
+              <span
+                className={`rounded-full px-3 py-1 text-xs font-semibold text-white ${
+                  skill.isPublished
+                    ? "bg-cyan-600"
+                    : "bg-yellow-600"
+                }`}
+              >
+                {skill.isPublished
+                  ? "Published"
+                  : "Draft"}
+              </span>
+            </td>
+
+            <td className="px-6 py-5">
+              <div className="flex justify-center gap-3">
+                <button
+                  onClick={() => openEditModal(skill)}
+                  className="rounded-lg bg-yellow-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-yellow-600"
                 >
-                  No Skills Found
-                </td>
-              </tr>
-            ) : (
-              skills.map((skill) => (
-                <tr
-                  key={skill._id}
-                  className="border-b border-slate-800 transition hover:bg-slate-800/50"
+                  Edit
+                </button>
+
+                <button
+                  onClick={() =>
+                    handleDelete(skill._id)
+                  }
+                  className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700"
                 >
-                  <td className="px-6 py-5">
-                    <div className="flex items-center gap-4">
-                      <img
-                        src={
-                          skill.icon?.url ||
-                          "https://placehold.co/80x80?text=Skill"
-                        }
-                        alt={skill.name}
-                        className="h-14 w-14 rounded-lg object-cover"
-                      />
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
 
-                      <div>
-                        <h3 className="font-semibold text-white">
-                          {skill.name}
-                        </h3>
+{/* Mobile Cards */}
+<div className="space-y-4 lg:hidden">
+  {skills.length === 0 ? (
+    <div className="rounded-xl bg-slate-900 p-6 text-center text-slate-400">
+      No Skills Found
+    </div>
+  ) : (
+    skills.map((skill) => (
+      <div
+        key={skill._id}
+        className="rounded-xl border border-slate-800 bg-slate-900 p-5 shadow-lg"
+      >
+        <div className="flex items-center gap-4">
+          <img
+            src={
+              skill.icon?.url ||
+              "https://placehold.co/80x80?text=Skill"
+            }
+            alt={skill.name}
+            className="h-16 w-16 rounded-xl object-cover"
+          />
 
-                        <p className="text-sm text-slate-400">
-                          {skill.color}
-                        </p>
-                      </div>
-                    </div>
-                  </td>
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold text-white">
+              {skill.name}
+            </h3>
 
-                  <td className="px-6 py-5 text-slate-300">
-                    {skill.category}
-                  </td>
+            <p className="text-sm text-slate-400">
+              {skill.category}
+            </p>
 
-                  <td className="px-6 py-5">
-                    <div className="mx-auto w-32">
-                      <div className="h-3 overflow-hidden rounded-full bg-slate-700">
-                        <div
-                          className="h-full rounded-full bg-cyan-500"
-                          style={{
-                            width: `${skill.level}%`,
-                          }}
-                        />
-                      </div>
+            <p className="text-xs text-slate-500">
+              {skill.color}
+            </p>
+          </div>
+        </div>
 
-                      <p className="mt-2 text-center text-sm text-white">
-                        {skill.level}%
-                      </p>
-                    </div>
-                  </td>
+        <div className="mt-5">
+          <div className="mb-2 flex justify-between">
+            <span className="text-sm text-slate-300">
+              Skill Level
+            </span>
 
-                  <td className="px-6 py-5 text-center">
-                    <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold text-white ${
-                        skill.featured
-                          ? "bg-green-600"
-                          : "bg-slate-700"
-                      }`}
-                    >
-                      {skill.featured
-                        ? "Featured"
-                        : "Normal"}
-                    </span>
-                  </td>
+            <span className="font-semibold text-cyan-400">
+              {skill.level}%
+            </span>
+          </div>
 
-                  <td className="px-6 py-5 text-center">
-                    <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold text-white ${
-                        skill.isPublished
-                          ? "bg-cyan-600"
-                          : "bg-yellow-600"
-                      }`}
-                    >
-                      {skill.isPublished
-                        ? "Published"
-                        : "Draft"}
-                    </span>
-                  </td>
+          <div className="h-3 overflow-hidden rounded-full bg-slate-700">
+            <div
+              className="h-full rounded-full bg-cyan-500"
+              style={{
+                width: `${skill.level}%`,
+              }}
+            />
+          </div>
+        </div>
 
-                  <td className="px-6 py-5">
-                    <div className="flex justify-center gap-3">
-                      <button
-                        onClick={() =>
-                          openEditModal(skill)
-                        }
-                        className="rounded-lg bg-yellow-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-yellow-600"
-                      >
-                        Edit
-                      </button>
+        <div className="mt-5 flex flex-wrap gap-2">
+          <span
+            className={`rounded-full px-3 py-1 text-xs font-semibold text-white ${
+              skill.featured
+                ? "bg-green-600"
+                : "bg-slate-700"
+            }`}
+          >
+            {skill.featured
+              ? "Featured"
+              : "Normal"}
+          </span>
 
-                      <button
-                        onClick={() =>
-                          handleDelete(skill._id)
-                        }
-                        className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+          <span
+            className={`rounded-full px-3 py-1 text-xs font-semibold text-white ${
+              skill.isPublished
+                ? "bg-cyan-600"
+                : "bg-yellow-600"
+            }`}
+          >
+            {skill.isPublished
+              ? "Published"
+              : "Draft"}
+          </span>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          <button
+            onClick={() => openEditModal(skill)}
+            className="rounded-lg bg-yellow-500 py-3 font-semibold text-white transition hover:bg-yellow-600"
+          >
+            Edit
+          </button>
+
+          <button
+            onClick={() =>
+              handleDelete(skill._id)
+            }
+            className="rounded-lg bg-red-600 py-3 font-semibold text-white transition hover:bg-red-700"
+          >
+            Delete
+          </button>
+        </div>
       </div>
+    ))
+  )}
+</div>
 
       <SkillModal
         isOpen={isModalOpen}
