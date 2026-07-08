@@ -37,10 +37,10 @@ function AllProjectsPage() {
     try {
       setLoading(true);
 
-      const response =
-        await getProjects({
-          published: true,
-        });
+      const response = await getProjects({
+  published: true,
+  limit: 1000,
+});
 
       setProjects(response.projects || []);
       setError("");
