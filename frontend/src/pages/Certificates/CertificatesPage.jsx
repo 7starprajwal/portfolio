@@ -8,9 +8,11 @@ import { getCertificates } from "../../services/certificateService";
 
 function CertificatesPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedSort, setSelectedSort] =
+    useState("newest");
 
-  const [certificates, setCertificates] = useState([]);
+  const [certificates, setCertificates] =
+    useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,25 +25,37 @@ function CertificatesPage() {
 
       const response = await getCertificates();
 
-      setCertificates(response.certificates || []);
+      setCertificates(
+        response.certificates || []
+      );
     } catch (error) {
-      console.error("Failed to load certificates:", error);
+      console.error(
+        "Failed to load certificates:",
+        error
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const totalCertificates = certificates.length;
+  const totalCertificates =
+    certificates.length;
 
   const totalProviders = useMemo(() => {
     return new Set(
-      certificates.map((certificate) => certificate.issuer)
+      certificates.map(
+        (certificate) =>
+          certificate.issuer
+      )
     ).size;
   }, [certificates]);
 
   const totalCategories = useMemo(() => {
     return new Set(
-      certificates.map((certificate) => certificate.category)
+      certificates.map(
+        (certificate) =>
+          certificate.category
+      )
     ).size;
   }, [certificates]);
 
@@ -52,18 +66,34 @@ function CertificatesPage() {
 
         <div className="relative mx-auto max-w-7xl px-6 py-24">
           <motion.h1
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{
+              opacity: 0,
+              y: 35,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.5,
+            }}
             className="mb-6 text-center text-5xl font-bold text-white md:text-6xl"
           >
             Certificates
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            initial={{
+              opacity: 0,
+              y: 35,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.2,
+            }}
             className="mx-auto max-w-3xl text-center text-lg leading-8 text-slate-400"
           >
             A collection of certifications that demonstrate my technical
@@ -112,8 +142,8 @@ function CertificatesPage() {
         />
 
         <CertificateFilter
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
+          selectedSort={selectedSort}
+          setSelectedSort={setSelectedSort}
         />
       </section>
 
@@ -121,7 +151,7 @@ function CertificatesPage() {
         certificates={certificates}
         loading={loading}
         searchTerm={searchTerm}
-        selectedCategory={selectedCategory}
+        selectedSort={selectedSort}
       />
     </div>
   );

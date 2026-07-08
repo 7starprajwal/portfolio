@@ -7,28 +7,59 @@ function CertificateGrid({
   certificates = [],
   loading = false,
   searchTerm = "",
-  selectedCategory = "All",
+  selectedSort = "newest",
 }) {
   const [selectedCertificate, setSelectedCertificate] =
     useState(null);
 
-  const filteredCertificates = useMemo(() => {
-    return certificates.filter((certificate) => {
-      const matchesSearch =
+  const displayedCertificates = useMemo(() => {
+    const filtered = certificates.filter(
+      (certificate) =>
         certificate.title
           ?.toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
         certificate.issuer
           ?.toLowerCase()
-          .includes(searchTerm.toLowerCase());
+          .includes(searchTerm.toLowerCase())
+    );
 
-      const matchesCategory =
-        selectedCategory === "All" ||
-        certificate.category === selectedCategory;
+    switch (selectedSort) {
+      case "az":
+        filtered.sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
+        break;
 
-      return matchesSearch && matchesCategory;
-    });
-  }, [certificates, searchTerm, selectedCategory]);
+      case "za":
+        filtered.sort((a, b) =>
+          b.title.localeCompare(a.title)
+        );
+        break;
+
+      case "oldest":
+        filtered.sort(
+          (a, b) =>
+            new Date(a.issueDate) -
+            new Date(b.issueDate)
+        );
+        break;
+
+      case "newest":
+      default:
+        filtered.sort(
+          (a, b) =>
+            new Date(b.issueDate) -
+            new Date(a.issueDate)
+        );
+        break;
+    }
+
+    return filtered;
+  }, [
+    certificates,
+    searchTerm,
+    selectedSort,
+  ]);
 
   return (
     <>
@@ -37,32 +68,38 @@ function CertificateGrid({
           <div className="py-20 text-center text-slate-400">
             Loading certificates...
           </div>
-        ) : filteredCertificates.length === 0 ? (
+        ) : displayedCertificates.length === 0 ? (
           <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-12 text-center">
             <h3 className="text-2xl font-semibold text-white">
               No Certificates Found
             </h3>
 
             <p className="mt-4 text-slate-400">
-              Try changing the search or filter.
+              Try changing the search.
             </p>
           </div>
         ) : (
           <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-            {filteredCertificates.map((certificate) => (
-              <CertificateCard
-                key={certificate._id}
-                certificate={certificate}
-                onView={setSelectedCertificate}
-              />
-            ))}
+            {displayedCertificates.map(
+              (certificate) => (
+                <CertificateCard
+                  key={certificate._id}
+                  certificate={certificate}
+                  onView={
+                    setSelectedCertificate
+                  }
+                />
+              )
+            )}
           </div>
         )}
       </section>
 
       <CertificateModal
         certificate={selectedCertificate}
-        onClose={() => setSelectedCertificate(null)}
+        onClose={() =>
+          setSelectedCertificate(null)
+        }
       />
     </>
   );
