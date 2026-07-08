@@ -62,6 +62,7 @@ function CertificateModal({
         year: "numeric",
       })
     : "N/A";
+    console.log(certificate);
     return (
   <AnimatePresence>
     <motion.div
@@ -151,6 +152,8 @@ function CertificateModal({
               <h3 className="mb-3 text-xl font-semibold text-white">
                 Description
               </h3>
+
+     
 
               <p className="leading-8 text-slate-300">
                 {certificate.description}
